@@ -17,12 +17,12 @@ var trackID3 = 'TRWXQQA133FBD61572';
 var trackID4 = 'TROTOZX13CE9E9F9AA';
 var trackID5 = 'TRDFDXK13CE9EBD025';
 var trackID6 = 'TRXBXLN13CE9ED4D96';
-var trackURL = 'audio/Track01.mp3';
-var trackURL2 = 'audio/Track02.mp3';
-var trackURL3 = 'audio/Track03.mp3';
-var trackURL4 = 'audio/Track04.mp3'
-var trackURL5 = 'audio/Track05.mp3'
-var trackURL6 = 'audio/Track06.mp3'
+var trackURL = 'http://majorglitch.net/wp/wp-content/uploads/2014/04/Track02.mp3';
+var trackURL2 = 'http://majorglitch.net/wp/wp-content/uploads/2014/04/audio/Track02.mp3';
+var trackURL3 = 'http://majorglitch.net/wp/wp-content/uploads/2014/04/audio/Track03.mp3';
+var trackURL4 = 'http://majorglitch.net/wp/wp-content/uploads/2014/04/audio/Track04.mp3'
+var trackURL5 = 'http://majorglitch.net/wp/wp-content/uploads/2014/04/audio/Track05.mp3'
+var trackURL6 = 'http://majorglitch.net/wp/wp-content/uploads/2014/04/audio/rebeccaturner.mp3'
 var remixer;
 var remixer2;
 var remixer3;
