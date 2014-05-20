@@ -1,0 +1,69 @@
+.align{
+    margin: 10px;
+}
+.align .labels{
+    float: left;
+    width:150px;
+    font-weight: bold;
+}
+#options_left_1, #options_left_2, #options_left_3, #options_left_4 {
+    display:none;
+}
+.items{
+    display: block;
+}
+.easy-flicker-setting  .align input[type="text"],textarea, select {
+    -webkit-border-radius: 3px;
+    -moz-border-radius: 3px;
+    border-radius: 3px;
+    font-size: 13px;
+    padding: 5px;
+    width: 260px;
+}
+
+.easy-flicker-setting #tag_intro {
+    margin: 10px 0 10px 150px;
+    line-height: 20px;
+}
+#intro{
+    background: none repeat scroll 0 0 #F7F7F7;
+    border: 1px solid #D7D7D7;
+    font-family: "Open Sans",sans-serif;
+    font-size: 16px;
+    line-height: 30px;
+    margin: 0;
+    padding: 10px;
+}
+.easy-flicker-setting .error {
+    background: none repeat scroll 0 0 #FCD4D4;
+    border: 1px solid #F7AAAA;
+    border-radius: 3px;
+    color: #D03C3C;
+    display: inline-block;
+    font-size: 14px;
+    margin: 10px 0;
+    padding: 10px;
+}
+
+.gallerystyle_intro {
+    margin: 8px 0 0 160px;
+}
+.options_head h2, h2.page_head{
+    background: none repeat scroll 0 0 #E4EFFF;
+    color: #555555;
+    font-weight: normal;
+    padding: 10px;
+    text-align: center;
+    font-size: 16px;
+    padding: 10px;
+}
+.options_head h2{
+    background:linear-gradient(to top, #ECECEC, #F9F9F9) repeat scroll 0 0 #F1F1F1;
+    border: 1px solid #DEDEDE;
+    border-radius: 3px;
+    font-weight: bold;
+    text-align: left;
+}
+.gallerystyle_intro {
+    margin: 8px 0 0 160px;
+}

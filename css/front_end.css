@@ -1,0 +1,204 @@
+/* 
+    Document   : flickr_gallery
+    Created on : Dec 13, 2012, 9:53:13 AM
+    Author     : Renu
+    Description: To set css of front end.
+        
+*/
+
+
+.easy-flickr-photo-gallery{
+    width:100%;
+    margin: 0 auto;
+    background: #FFF;
+    padding: 5px;
+    margin-bottom: 0px;
+    border-radius: 5px;
+    /*  clear: both;*/
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+}
+
+.easy-flickr-photo-gallery .centered { margin: 0 auto; }
+
+.easy-flickr-photo-gallery .box {
+    margin: 5px;
+    background: #ffffff;
+    font-size: 11px;
+    line-height: 1.4em;
+    float: left;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px ;
+    padding: 2px;
+    box-shadow: 0 0 3px rgba(25, 25, 25, 0.6);
+
+}
+
+.easy-flickr-photo-gallery .box h2 {
+    font-size: 14px;
+    font-weight: 200;
+}
+
+.easy-flickr-photo-gallery .box img{
+    display: block;
+    width: 100%;
+}
+
+.rtl .box {
+    float: right;
+    text-align: right; 
+    direction: rtl;
+}
+
+
+
+.easy-flickr-photo-gallery .col1 { width: 90px; }
+.easy-flickr-photo-gallery .col2 { width: 120px; }
+.easy-flickr-photo-gallery .col3 { width: 180px; }
+.easy-flickr-photo-gallery .col4 { width: 220px; }
+.easy-flickr-photo-gallery .col5 { width: 260px; }
+
+.easy-flickr-photo-gallery .col1 img { max-width: 90px; }
+.easy-flickr-photo-gallery .col2 img { max-width: 120px; }
+.easy-flickr-photo-gallery .col3 img { max-width: 180px; }
+.easy-flickr-photo-gallery .col4 img { max-width: 220px; }
+.easy-flickr-photo-gallery .col5 img { max-width: 260px; }
+
+/**** Clearfix ****/
+.clearfix:before, .clearfix:after { content: ""; display: table; }
+.clearfix:after { clear: both; }
+.clearfix { zoom: 1; }
+
+.easy-flickr-photo-gallery #more{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #CFCFCF;
+    color: #000000;
+    display: none;
+    font-weight: bold;
+    left:45%;
+    padding: 5px;
+    bottom: 0;
+    position: absolute;
+    z-index: 9999;
+    /*top: 100px;*/
+
+}
+.easy-flickr-photo-gallery #no-more{
+    background: none repeat scroll 0 0 #EEEEEE;
+    border: 1px solid #CFCFCF;
+    color: #000000;
+    display: none;
+    font-weight: bold;
+    left: 45%;
+    bottom: 0;
+    padding: 5px;
+    position: absolute;
+    z-index: 9999;
+    /*top: 100px;*/
+
+}
+/*#result{
+    display: inline-block; 
+
+}*/
+easy-flickr-gallery-pagination .holder .navbutton {
+    border: 1px solid #006;
+    background: #ccf;
+    color: #000;
+    font-size: 11px;
+    padding: 2px 7px;
+    margin: 0px 2px 0px 2px;
+}
+
+easy-flickr-gallery-pagination .holder .navbutton:hover {
+    border: 1px solid #f00;
+    background: black;
+    color:#fff;
+}
+easy-flickr-gallery-pagination .holder .navbutton:active {
+    background:gray;
+}
+easy-flickr-gallery-pagination .holder select{
+    background: transparent;
+    width: 60px;
+    padding: 5px;
+    font-size: 11px;
+    border: 1px solid #ccc;
+
+}
+
+/* CSS for active button*/
+easy-flickr-gallery-pagination .holder #currentnav{
+    background:red;
+}
+easy-flickr-gallery-pagination .error{
+    color:red;
+}
+
+.easy-flickr-gallery-pagination {
+    clear:both;
+    padding:20px 0;
+    position:relative;
+    font-size:14px;
+    line-height:13px;
+
+}
+.easy-flickr-gallery-pagination form{
+    float: left;
+}
+
+
+.easy-flickr-gallery-pagination span, .easy-flickr-gallery-pagination a, select.navbutton.pagi_item, button{
+    display:block;
+    float:left;
+    margin: 2px 2px 2px 0;
+    padding:9px 12px 8px;
+    text-decoration:none;
+    width:auto;
+    color:#515151;
+    background:linear-gradient(#F7F7F7, #E3E3E3);
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border: 1px solid #C6C6C6;
+    font-weight: bold;
+}
+
+
+
+easy-flickr-gallery-pagination select.navbutton.pagi_item{
+    height: 32px;
+    padding: 6px 3px;
+    width: 60px;
+}
+easy-flickr-gallery-pagination select.navbutton.pagi_item option{
+    padding: 2px 6px;
+}
+easy-flickr-gallery-pagination .navbutton.pagi_item:hover{
+    background:linear-gradient(#3290E7, #2566A3);
+    color: #fff;
+    border: 1px solid #074884;
+}
+easy-flickr-gallery-pagination .navbutton.pagi_item option{
+    color: #515151;
+}
+.easy-flickr-gallery-easy-flickr-gallery-pagination a:hover, .efpg_button:hover{
+    color:#fff;
+    border: 1px solid #074884;
+    background:linear-gradient(#3290E7, #2566A3);
+}
+
+.easy-flickr-gallery-easy-flickr-gallery-pagination .current{
+    padding:9px 12px 8px;
+    background:linear-gradient(#3290E7, #2566A3);
+    color:#fff;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    border:1px solid #074884;
+}
+
+
+
