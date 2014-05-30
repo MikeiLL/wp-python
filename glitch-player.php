@@ -49,11 +49,28 @@ function glitch_player_show_make_mix(){
     $results ='';
     //$arguments =  ("nothin","notMuch");
     $link = ' <a onclick="glitch_player_display('.$arguments.');">'. "Make A Mix" .'</a>';
-	$result.= '<h3>' . $link . '</h3>';
-	$result.=  '<div id="showglitchplayer" style="border:1px solid #000"></div>';
+	$result .= '<h3>' . $link . '</h3>';
+	$result .=  '<div id="showglitchplayer" style="border:1px solid #000">';
+	$result .= '<div id="t1" class="throb">
+				<canvas style="width: 34px; height: 34px; display: block;" height="34" width="34"></canvas>
+				</div>';
+	$result .= '</div>';
     return $result;
 }
-
+	$argvs = array();
+		
+	foreach ( glob( plugin_dir_path( __FILE__ )."../../uploads/2014/05/audio/*.mp3" ) as $file )
+	    array_push($argvs, substr($file, strlen(plugin_dir_path( __FILE__ ))));
+	
+	$child_process = "python glitcher/glitchmix.py -v -e ";
+	shuffle($argvs);
+	$i = 0;
+	foreach($argvs as $track){
+		if (($i < 2) && (!strpos($track,"12_44"))) // we'll limit the number of tracks and ignore the 12_44 long one
+			$child_process .= $track." ";
+		$i++;}
+	echo $child_process;
+	
 add_shortcode( 'glitch-player', 'ajaxglitch_player_shortcode_function' );
 
 function ajaxglitch_player_shortcode_function( $atts ){
