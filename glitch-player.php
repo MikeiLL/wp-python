@@ -57,19 +57,6 @@ function glitch_player_show_make_mix(){
 	$result .= '</div>';
     return $result;
 }
-	$argvs = array();
-		
-	foreach ( glob( plugin_dir_path( __FILE__ )."../../uploads/2014/05/audio/*.mp3" ) as $file )
-	    array_push($argvs, substr($file, strlen(plugin_dir_path( __FILE__ ))));
-	
-	$child_process = "python glitcher/glitchmix.py -v -e ";
-	shuffle($argvs);
-	$i = 0;
-	foreach($argvs as $track){
-		if (($i < 2) && (!strpos($track,"12_44"))) // we'll limit the number of tracks and ignore the 12_44 long one
-			$child_process .= $track." ";
-		$i++;}
-	echo $child_process;
 	
 add_shortcode( 'glitch-player', 'ajaxglitch_player_shortcode_function' );
 
@@ -101,11 +88,25 @@ function ajaxglitch_player_ajaxhandler(){
     'ECHO_NEST_API_KEY' =>
     'TX2IDAM1HXOO99YPB'
 );
-	$proc = proc_open ( $application.$separator.$argv1.$separator.$argv2.$separator.$argv3 , $description , $pipes, glitch_player_DIR, $env );
-
+	$argvs = array();
+		
+	//make array from all the files in audio folder
+	foreach ( glob( plugin_dir_path( __FILE__ )."../../uploads/2014/05/audio/*.mp3" ) as $file )
+	    array_push($argvs, substr($file, strlen(plugin_dir_path( __FILE__ ))));
 	
-	//echo proc_get_status($proc)['pid'];
-
+	//dynamically build the sub-process call
+	$child_process = "python glitcher/glitchmix.py -v -e ";
+	shuffle($argvs);
+	$i = 0;
+	foreach($argvs as $track){
+		if (($i < 6) && (!strpos($track,"12_44"))) // we'll limit the number of tracks and ignore the 12_44 long one
+			$child_process .= $track." ";
+		$i++;}
+	
+	$proc = proc_open ( $child_process , $description , $pipes, glitch_player_DIR, $env );
+	//echo $child_process . "<hr/>";
+	//echo $application.$separator.$argv1.$separator.$argv2.$separator.$argv3 . "<hr/>";
+	
 // set all streams to non blockin mode
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
