@@ -9,7 +9,8 @@ Author: mikeill
 Author URI: http://www.mZoo.org
 */
 
-
+	//foreach ( glob( plugin_dir_path( __FILE__ )."../wp-miniaudioplayer/*.*" ) as $miniplayer )
+	//    include_once $miniplayer;
 //define plugin path and directory
 define( 'glitch_player_DIR', plugin_dir_path( __FILE__ ) );
 define( 'glitch_player_URL', plugin_dir_url( __FILE__ ) );
@@ -27,17 +28,21 @@ function glitch_player_activation() {
 //might not need to do anything here
 }
 
-	function glitch_player_init() {
-		wp_register_style('glitch_player_fe', plugins_url('/css/front_end.css',__FILE__ ));
+/**
+ * Proper way to enqueue scripts and styles
+ */
+function theme_name_scripts() {
+		wp_register_style('glitch_player_fe', glitch_player_URL.'css/front_end.css');
 		wp_enqueue_style('glitch_player_fe');
-		}
-		
+}
+
+add_action( 'wp_enqueue_scripts', 'theme_name_scripts' );		
 
 function ajaxglitch_player_enqueuescripts() {
-    wp_enqueue_script('ajaxglitch_player', glitch_player_URL.'/js/glitch_player.js', array('jquery'));
+    wp_enqueue_script('ajaxglitch_player', glitch_player_URL.'js/glitch_player.js', array('jquery'));
     wp_localize_script( 'ajaxglitch_player', 'ajaxglitch_playerajax', array( 'ajaxurl' => admin_url( 'admin-ajax.php' ) ) );
 }
-add_action('wp_enqueue_scripts', ajaxglitch_player_enqueuescripts);
+add_action('wp_enqueue_scripts', 'ajaxglitch_player_enqueuescripts');
 
 
 
@@ -46,15 +51,22 @@ add_action( 'wp_ajax_ajaxglitch_player_ajaxhandler', 'ajaxglitch_player_ajaxhand
 
 
 function glitch_player_show_make_mix(){
-    $results ='';
-    //$arguments =  ("nothin","notMuch");
-    $link = ' <a onclick="glitch_player_display('.$arguments.');">'. "Make A Mix" .'</a>';
+/*<form name="input" action="demo_form_action.asp" method="get">
+Username: <input type="text" name="user">
+<input type="submit" value="Submit">
+</form> */
+	$result = "";
+    $nonce = wp_create_nonce("ajaxloadpost_nonce");
+ 	//$arguments =  get_the_ID().",'".$nonce."'";
+ 	$arguments = "'".$nonce."'";
+    $link = ' <div id="make_button"><a onclick="glitch_player_display('.$arguments.');">'. "Make A Mix" .'</a></div>';
 	$result .= '<h3>' . $link . '</h3>';
-	$result .=  '<div id="showglitchplayer" style="border:1px solid #000">';
+	$result .=  '<div id="showglitchplayer">';
 	$result .= '<div id="t1" class="throb">
 				<canvas style="width: 34px; height: 34px; display: block;" height="34" width="34"></canvas>
 				</div>';
 	$result .= '</div>';
+	$result .= '<div id="play_button"><a title="The Major Glitch Original Version" href="'.glitch_player_URL.$nonce.'.mp3">First Mix</a></div>';
     return $result;
 }
 	
@@ -63,23 +75,22 @@ add_shortcode( 'glitch-player', 'ajaxglitch_player_shortcode_function' );
 function ajaxglitch_player_shortcode_function( $atts ){
     return glitch_player_show_make_mix();
 }
+
 function ajaxglitch_player_ajaxhandler(){
+	$mix_name = isset( $_POST['mix_name'] )? $_POST['mix_name'] : false;
+	var_dump( "The mix_name is $mix_name" ); // this will probably break the AJAX response
+	error_log( "The mix_name is $mix_name" ); // write it to the error_log too.
+	//$nonce = wp_create_nonce("ajaxloadpost_nonce");
+	//$nonce = "illery";
+	$my_result = '<div id="play_button"><a title="The Major Glitch Your Mix" href="'.glitch_player_URL.$mix_name.'.mp3">Your Mix</a></div>';
+	$my_result .= "<hr/>";
+	
 	$description = array (     
 		0 => array("pipe", "r"),  // stdin
 		1 => array("pipe", "w"),  // stdout
 		2 => array("pipe", "w")   // stderr
 	);
- 
-	$application_system = "python ";
-	$application_name .= "glitcher/glitchmix.py";
-	$separator = " ";
-
-	$application = $application_system.$application_name.$separator;
 	
-	$argv1 = '-v -e';
-	$argv2 = '../../uploads/2014/05/audio/Devil_Glitch_Dub_acoustic_1.mp3';
-	$argv3 = '../../uploads/2014/05/audio/LiamSternberg.mp3';
-
 	$pipes = array();
  	//pr($_ENV);
  	$env = array(
@@ -88,25 +99,23 @@ function ajaxglitch_player_ajaxhandler(){
     'ECHO_NEST_API_KEY' =>
     'TX2IDAM1HXOO99YPB'
 );
-	$argvs = array();
+	$argvs = array();//initialize the array or song track arguments
 		
 	//make array from all the files in audio folder
-	foreach ( glob( plugin_dir_path( __FILE__ )."../../uploads/2014/05/audio/*.mp3" ) as $file )
+	foreach ( glob( plugin_dir_path( __FILE__ )."../../uploads/2014/04/audio/*.mp3" ) as $file )
 	    array_push($argvs, substr($file, strlen(plugin_dir_path( __FILE__ ))));
-	
+	    
 	//dynamically build the sub-process call
-	$child_process = "python glitcher/glitchmix.py -v -e ";
+	$child_process = "python glitcher/glitchmix.py -v -e -u ".$_POST['mix_name']." ";
 	shuffle($argvs);
 	$i = 0;
 	foreach($argvs as $track){
-		if (($i < 6) && (!strpos($track,"12_44"))) // we'll limit the number of tracks and ignore the 12_44 long one
+		if (($i < 2) && (!strpos($track,"12_44"))) // we'll limit the number of tracks and ignore the 12_44 long one
 			$child_process .= $track." ";
 		$i++;}
 	
 	$proc = proc_open ( $child_process , $description , $pipes, glitch_player_DIR, $env );
-	//echo $child_process . "<hr/>";
-	//echo $application.$separator.$argv1.$separator.$argv2.$separator.$argv3 . "<hr/>";
-	
+
 // set all streams to non blockin mode
 stream_set_blocking($pipes[1], 0);
 stream_set_blocking($pipes[2], 0);
@@ -159,13 +168,14 @@ while(true) {
     }*/
 }
 	//TEST
-	echo $application.$separator.$argv1.$separator.$argv2.$separator.$argv3;
-	$application_test = glitch_player_DIR.$application_name;
+	echo $child_process;
 	
-	echo "<br/>Is ".$application_test." executable? ".is_executable($application_test)." ";
-	echo "readable? ".is_readable($application_test)." ";
-	echo "writable? ".is_writable($application_test)." ";
+	echo "<br/>Is ".$child_process." executable? ".is_executable($application_test)." ";
+	echo "readable? ".is_readable($child_process)." ";
+	echo "writable? ".is_writable($child_process)." ";
 	//END TEST
+	$my_result .= ' and there is is...<hr/>';
+	return $my_result;
 } //EOF main/shorcode function
 
 if ( is_admin() ){  //BOF Admin View

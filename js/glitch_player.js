@@ -1,33 +1,39 @@
-function glitch_player_display(postid,nonce) {
-	var throb = Throbber({
-    color: 'red',
-    padding: 30,
-    size: 54,
-    fade: 200,
-    clockwise: false
-}).appendTo( document.getElementById( 't1' ) ).start();
-	alert("Now please wait while I assemble the parts. This might take a while. Maybe go get a drink...");
-	throb.start();
-    jQuery.ajax({
-        type: 'POST',
-        url: ajaxglitch_playerajax.ajaxurl,
-        data: {
-            action: 'ajaxglitch_player_ajaxhandler',
-            postid: postid,
-            nonce: nonce
-        },
-        success: function(data, textStatus, XMLHttpRequest) {
-	alert("The mix is made!");
-        throb.stop();
-            var loadpostresult = '#showglitchplayer';
-            jQuery(showglitchplayer).html('');
-            jQuery(showglitchplayer).append(data);
-        },
-        error: function(MLHttpRequest, textStatus, errorThrown) {
-            alert(errorThrown);
-        }
-    });
-}
+(function($){
+
+})(jQuery);
+
+function glitch_player_display(mix_name) {
+		var throb = Throbber({
+		color: '#428BCA',
+		padding: 30,
+		size: 154,
+		fade: 200,
+		clockwise: true
+	}).appendTo( document.getElementById( 't1' ) ).start();
+		//alert("Now please wait while I assemble the parts. This might take a while. Maybe go get a drink...");
+		alert(mix_name);
+		throb.start();
+		jQuery.ajax({
+			type: 'POST',
+			url: ajaxglitch_playerajax.ajaxurl,
+			data: {
+				action: 'ajaxglitch_player_ajaxhandler',
+				mix_name: mix_name
+			},
+			success: function(data, textStatus, XMLHttpRequest) {play_button
+		document.getElementById('make_button').style.visibility="hidden";
+		document.getElementById('play_button').style.visibility="visible";
+		alert("The mix is made!");
+			throb.stop();
+				var showglitchplayer = '#showglitchplayer';
+				jQuery(showglitchplayer).html('');
+				jQuery(showglitchplayer).append(data);
+			},
+			error: function(MLHttpRequest, textStatus, errorThrown) {
+				alert(errorThrown);
+			}
+		});
+	}
 
 /**
  * @preserve throbber.js v 0.0.2 2014-04-30

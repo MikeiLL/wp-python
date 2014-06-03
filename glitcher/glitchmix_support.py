@@ -13,7 +13,7 @@ from echonest.remix.action import Crossfade, Playback, Crossmatch, Fadein, Fadeo
 from utils import rows, flatten
 
 # constants for now
-X_FADE = 1
+X_FADE = 2
 FADE_IN = 0.25
 FADE_OUT = 6
 MIN_SEARCH = 4

@@ -10,18 +10,14 @@ Created by Tristan Jehan and Jason Sundram.
 """
 
 
-print "Now please wait while I mix the tracks together in the most thoughtful way possible..."
+print "Here you can see, if interested, some of what the EchoNest / Remix process was..."
 
 import os
-
 import sys
 from optparse import OptionParser
-
 from echonest.remix.action import render, make_stereo
-
 from echonest.remix.audio import LocalAudioFile
 from pyechonest import util
-
 from glitchmix_support import order_tracks, equalize_tracks, resample_features, timbre_whiten, initialize, make_transition, terminate, FADE_OUT, display_actions, is_valid
 
 
@@ -93,7 +89,8 @@ def get_options(warn=False):
     parser.add_option("-i", "--inter", default=8, help="section that's not transitioning (in seconds) default=8")
     parser.add_option("-o", "--order", action="store_true", help="automatically order tracks")
     parser.add_option("-e", "--equalize", action="store_true", help="automatically adjust volumes")
-    parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")        
+    parser.add_option("-v", "--verbose", action="store_true", help="show results on screen")          
+    parser.add_option("-u", "--the_user", default=8, help="name this mix")              
     parser.add_option("-p", "--pdb", default=True, help="dummy; here for not crashing when using nose")
     
     (options, args) = parser.parse_args()
@@ -112,7 +109,10 @@ def main():
     
         print "Rendering..."
     # Send to renderer
-    render(actions, 'GlitchMix.mp3', verbose)
+    theuser = str(options.the_user)
+    final_file = theuser + ".mp3"
+    print final_file
+    render(actions, final_file, verbose)
     return 1
     
 if __name__ == "__main__":
